@@ -4,9 +4,10 @@ export function validBody(schema) {
       schema.parse(req.body);
       next();
     } catch (err) {
-      const error = JSON.parse(err.message)[0].message;
+      const errorMsg = JSON.parse(err.message)[0].message;
+      const error = new Error(errorMsg);
       error.statusCode = 400;
-      throw err;
+      throw error;
     }
   };
 }
