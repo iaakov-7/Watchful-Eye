@@ -1,6 +1,12 @@
+import { ObjectId } from "mongodb";
 import { db } from "../db/mongo.db.js";
 
 const collection = db.collection("alerts");
+
+async function findById(id) {
+  const alert = await collection.findOne({ _id: new ObjectId(id) });
+  return alert;
+}
 
 async function insertAlert(newAlert) {
   const result = await collection.insertOne(newAlert);
@@ -8,4 +14,13 @@ async function insertAlert(newAlert) {
   return alertCreated;
 }
 
-export const alertsRepo = { insertAlert };
+async function updateAlert(id, toUpdate) {
+  const alertUpdated = await collection.findOneAndUpdate(
+    { _id: new ObjectId(id) },
+    { $set: toUpdate },
+    { returnDocument: "after" },
+  );
+  return alertUpdated;
+}
+
+export const alertsRepo = { insertAlert, updateAlert, findById };

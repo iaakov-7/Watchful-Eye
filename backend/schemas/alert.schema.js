@@ -22,3 +22,5 @@ export const alertSchema = z.object({
   lon: z.number("The field `lon` is required and must be of type number"),
   lat: z.number("The field `lat` is required and must be of type number"),
 });
+
+export const alertSchemaForUpdate = alertSchema.partial().optional();
