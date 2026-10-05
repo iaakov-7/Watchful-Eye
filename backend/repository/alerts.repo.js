@@ -8,6 +8,11 @@ async function findById(id) {
   return alert;
 }
 
+async function getAll(filter) {
+  const alerts = await collection.find().filter(filter).toArray();
+  return alerts;
+}
+
 async function insertAlert(newAlert) {
   const result = await collection.insertOne(newAlert);
   const alertCreated = await collection.findOne({ _id: result.insertedId });
@@ -23,4 +28,4 @@ async function updateAlert(id, toUpdate) {
   return alertUpdated;
 }
 
-export const alertsRepo = { insertAlert, updateAlert, findById };
+export const alertsRepo = { insertAlert, updateAlert, findById,getAll };

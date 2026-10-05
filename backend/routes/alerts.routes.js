@@ -12,3 +12,5 @@ router.put(
   validBody(alertSchemaForUpdate),
   alertsCtrls.handleUpdateAlert,
 );
+
+router.get("/", alertsCtrls.handleGetAll);

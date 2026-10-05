@@ -6,5 +6,7 @@ I chose MongoDB because we don't need strictness or direct links between tables 
 
 ## Which HTTP status codes are used
 
-- 400 Bad Request, for error in valid body because of code 400 is for invalid request message framing
-- 500 Internal Server Error, for General response to issues arising on the server because of code 500 is for these errors
+- 201 Created, for response in post alert that create a new alert
+- 400 Bad Request, for error in validations of the body because of code 400 is for invalid request message framing
+- 404 Not Found, if alert is not found by id
+- 500 Internal Server Error, for General response to issues arising on the server

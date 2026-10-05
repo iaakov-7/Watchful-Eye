@@ -17,4 +17,14 @@ async function handleUpdateAlert(req, res) {
   res.json({ success: true, data: alertUpdated });
 }
 
-export const alertsCtrls = { handleCreateAlert, handleUpdateAlert };
+async function handleGetAll(req, res) {
+  const filter = req.query;
+  const alerts = await alertsRepo.getAll(filter);
+  res.json({ success: true, data: alerts });
+}
+
+export const alertsCtrls = {
+  handleCreateAlert,
+  handleUpdateAlert,
+  handleGetAll,
+};
