@@ -27,9 +27,18 @@ async function handleGetById(req, res) {
   res.json({ success: true, data: alert });
 }
 
+async function handleDeleteAlert(req, res) {
+  const { id } = req.params;
+  const alert = await alertsRepo.findById(id);
+  raisErrorIfNotFound(alert, id);
+  const result = await alertsRepo.deleteAlert(id);
+  res.json({ success: true, data: result });
+}
+
 export const alertsCtrls = {
   handleCreateAlert,
   handleUpdateAlert,
   handleGetAll,
   handleGetById,
+  handleDeleteAlert,
 };

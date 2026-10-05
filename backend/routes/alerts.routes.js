@@ -15,4 +15,6 @@ router.put(
 
 router.get("/", alertsCtrls.handleGetAll);
 
-router.get("/:id",alertsCtrls.handleGetById);
+router.get("/:id", alertsCtrls.handleGetById);
+
+router.delete("/:id", alertsCtrls.handleDeleteAlert);

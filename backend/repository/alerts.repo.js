@@ -28,4 +28,9 @@ async function updateAlert(id, toUpdate) {
   return alertUpdated;
 }
 
-export const alertsRepo = { insertAlert, updateAlert, findById,getAll };
+async function deleteAlert(id) {
+  const result = await collection.deleteOne({ _id: new ObjectId(id) });
+  return result.acknowledged
+}
+
+export const alertsRepo = { insertAlert, updateAlert, findById, getAll,deleteAlert };
