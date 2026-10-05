@@ -3,7 +3,7 @@ export function errorHandler(err, req, res, next) {
     console.log(err);
     res.status(err.statusCode || 500).json({
       success: false,
-      message: err.statusCode ? err.message : "תקלה פנימית בשרת",
+      message: err.statusCode ? err.message : "Internal Server Error",
     });
   }
 }
