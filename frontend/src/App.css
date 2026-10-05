@@ -1,14 +1,30 @@
+/* table css */
+.alerts-table {
+  margin: auto;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.alerts-table th,
+td {
+  border: 1px black solid;
+  padding: 0.5rem;
+}
+
 .alerts-table .critical {
   color: red;
 }
 
+.alerts-table td {
+  cursor: pointer;
+}
 .alerts-table .medium {
-  color: rgb(245, 245, 144);
+  color: rgb(235, 235, 111);
 }
 
 .alerts-table .high {
   color: orange;
 }
 .alerts-table .low {
-  color: green;
+  color: lightblue;
 }

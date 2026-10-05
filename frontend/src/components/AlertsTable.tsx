@@ -1,25 +1,36 @@
+import { useNavigate } from "react-router";
 import type { Alert } from "../types/alerts.types";
 
 const AlertsTable = ({ alerts }: { alerts: Alert[] }) => {
+  const navigate = useNavigate();
+  const handleClick = (id: string | number) => {
+    navigate(`/alert/${id}`);
+  };
   return (
-    <table className="alerts-table">
-      <thead>
-        <tr>
-          <th>שם התראה</th>
-          <th>סטטוס</th>
-          <th>דחיפות</th>
-        </tr>
-      </thead>
-      <tbody>
-        {alerts.map((alert) => (
-          <tr key={alert._id}>
-            <th>{alert.displayName}</th>
-            <th>{alert.status}</th>
-            <th className={alert.priority.toLowerCase()}>{alert.priority}</th>
+    <>
+      <h2>טבלת התראות</h2>
+      <h3>לפרטי התראה לחץ על ההתראה בטבלה</h3>
+      <table className="alerts-table">
+        <thead>
+          <tr>
+            <th>שם התראה</th>
+            <th>פיקוד</th>
+            <th>סטטוס</th>
+            <th>דחיפות</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {alerts.map((alert) => (
+            <tr key={alert._id} onClick={() => handleClick(alert._id)}>
+              <td>{alert.displayName}</td>
+              <td>{alert.arena}</td>
+              <td>{alert.status}</td>
+              <td className={alert.priority.toLowerCase()}>{alert.priority}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 };
 

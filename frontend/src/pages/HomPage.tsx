@@ -18,16 +18,15 @@ const HomPage = () => {
   if (error) return <p>{error}</p>;
   return (
     <>
-      {alerts.length > 0 ? (
+      <SearchByName alerts={alerts} set={setAlertsForDisplay} />
+      {alertsForDisplay.length > 0 ? (
         <>
-          <AlertsMap alerts={alertsForDisplay} height={500} />
-          <SearchByName alerts={alerts} set={setAlertsForDisplay} />
-          <h2>טבלת התראות</h2>
-          <h3>לפרטי התראה לחץ על ההתראה</h3>
           <AlertsTable alerts={alertsForDisplay} />
+          <h2>מפת התראות</h2>
+          <AlertsMap alerts={alertsForDisplay} height={500} />
         </>
       ) : (
-        <p>אין התראות</p>
+        <h3>אין התראות</h3>
       )}
     </>
   );
