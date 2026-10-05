@@ -7,7 +7,7 @@ export type AlertPriority = "Low" | "Medium" | "High" | "Critical";
 
 
 export interface MapAlert {
-  id: string | number;
+  _id: string | number;
   displayName: string;
   priority: string;
 
@@ -85,7 +85,7 @@ export default function AlertsMap({ alerts, height = 520, className }: AlertsMap
           const isCritical = alert.priority === "Critical";
 
           return (
-            <span key={alert.id}>
+            <span key={alert._id}>
               {isCritical && (
                 <CircleMarker
                   center={position}

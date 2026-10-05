@@ -1,0 +1,14 @@
+.alerts-table .critical {
+  color: red;
+}
+
+.alerts-table .medium {
+  color: rgb(245, 245, 144);
+}
+
+.alerts-table .high {
+  color: orange;
+}
+.alerts-table .low {
+  color: green;
+}
