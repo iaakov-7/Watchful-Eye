@@ -10,4 +10,6 @@ export const useAlertsStore = create<AlertsStore>((set) => ({
     })),
   deleteAlert: (id) =>
     set((state) => ({ alerts: state.alerts.filter((a) => a._id !== id) })),
+  addAlert: (newAlert) =>
+    set((state) => ({ alerts: [...state.alerts, newAlert] })),
 }));

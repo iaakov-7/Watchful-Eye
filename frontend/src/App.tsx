@@ -3,6 +3,7 @@ import "./App.css";
 import HomPage from "./pages/HomPage";
 import { Layout } from "./components/Layout";
 import AlertDetailsPage from "./pages/AlertDetailsPage";
+import AddAlertPage from "./pages/AddAlertPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/" element={<HomPage />} />
             <Route path="/alert/:id" element={<AlertDetailsPage />} />
+            <Route path="/alert/new" element={<AddAlertPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

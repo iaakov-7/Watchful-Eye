@@ -1,28 +1,21 @@
 import { useState, type FormEvent } from "react";
-import type { Alert } from "../types/alerts.types";
 import { useFetch } from "../hooks/useFetch";
 import { useAlertsStore } from "../store/useAlertsStore";
 
-const UpdateForm = ({
-  alert,
-  setISupdateForm,
-}: {
-  alert: Alert | any;
-  setISupdateForm: (bool: boolean) => void;
-}) => {
-  const [displayName, setDisplayName] = useState<string>(alert.displayName);
-  const [description, setDescription] = useState<string>(alert.description);
-  const [priority, setPriority] = useState<string>(alert.priority);
-  const [arena, setArena] = useState<string>(alert.arena);
-  const [status, setStatus] = useState<string>(alert.status);
-  const [lon, setLon] = useState<number>(alert.lon);
-  const [lat, setLat] = useState<number>(alert.lat);
+const CreateAlertForm = () => {
+  const [displayName, setDisplayName] = useState<string>();
+  const [description, setDescription] = useState<string>();
+  const [priority, setPriority] = useState<string>("Low");
+  const [arena, setArena] = useState<string>("Center");
+  const [status, setStatus] = useState<string>("Handled");
+  const [lon, setLon] = useState<number>();
+  const [lat, setLat] = useState<number>();
   const [msg, setMsg] = useState<string>();
   const { executingRequest, error, success } = useFetch();
-  const { updateAlert } = useAlertsStore();
+  const { addAlert } = useAlertsStore();
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await executingRequest("put", `/api/alerts/${alert._id}`, {
+    const data = await executingRequest("post", `/api/alerts`, {
       displayName,
       description,
       priority,
@@ -32,22 +25,8 @@ const UpdateForm = ({
       lat,
     });
     if (success) {
-      setMsg("העדכון הצליח");
-
-      setISupdateForm(false);
-      updateAlert(
-        {
-          _id: alert._id,
-          displayName,
-          description,
-          arena,
-          status,
-          priority,
-          lon,
-          lat,
-        },
-        alert._id,
-      );
+      setMsg("התראה נוספה בהצלחה");
+      addAlert(data);
     }
   };
   if (error) setMsg(error);
@@ -120,4 +99,4 @@ const UpdateForm = ({
   );
 };
 
-export default UpdateForm;
+export default CreateAlertForm;

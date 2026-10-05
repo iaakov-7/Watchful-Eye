@@ -5,4 +5,5 @@ export interface AlertsStore {
   setAlerts: (alerts: Alert[]) => void;
   updateAlert: (alert: Alert, id: string | number) => void;
   deleteAlert: (id: number | string) => void;
+  addAlert:(newAlert:Alert) => void
 }
