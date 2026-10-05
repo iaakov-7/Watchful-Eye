@@ -14,3 +14,5 @@ router.put(
 );
 
 router.get("/", alertsCtrls.handleGetAll);
+
+router.get("/:id",alertsCtrls.handleGetById);

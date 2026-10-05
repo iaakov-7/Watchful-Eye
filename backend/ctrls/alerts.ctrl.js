@@ -1,4 +1,5 @@
 import { alertsRepo } from "../repository/alerts.repo.js";
+import { raisErrorIfNotFound } from "../utils.js";
 
 async function handleCreateAlert(req, res) {
   const alertCreated = await alertsRepo.insertAlert(req.body);
@@ -8,11 +9,7 @@ async function handleCreateAlert(req, res) {
 async function handleUpdateAlert(req, res) {
   const { id } = req.params;
   const alert = await alertsRepo.findById(id);
-  if (!alert) {
-    const error = new Error(`Alert with id ${id} not found`);
-    error.statusCode = 404;
-    throw error;
-  }
+  raisErrorIfNotFound(alert, id);
   const alertUpdated = await alertsRepo.updateAlert(id, req.body);
   res.json({ success: true, data: alertUpdated });
 }
@@ -23,8 +20,16 @@ async function handleGetAll(req, res) {
   res.json({ success: true, data: alerts });
 }
 
+async function handleGetById(req, res) {
+  const { id } = req.params;
+  const alert = await alertsRepo.findById(id);
+  raisErrorIfNotFound(alert, id);
+  res.json({ success: true, data: alert });
+}
+
 export const alertsCtrls = {
   handleCreateAlert,
   handleUpdateAlert,
   handleGetAll,
+  handleGetById,
 };
