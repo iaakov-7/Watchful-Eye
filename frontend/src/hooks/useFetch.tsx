@@ -7,6 +7,7 @@ export const useFetch = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>();
   const [data, setData] = useState();
+  const [success, setSuccess] = useState<boolean>();
   const executingRequest = async (
     method: "post" | "put" | "delete" | "get",
     url: string,
@@ -22,6 +23,7 @@ export const useFetch = () => {
       }
       if (response.data.success) {
         setData(response.data?.data);
+        setSuccess(response.data.success);
         return response.data.data;
       } else {
         setError("תקלת שרת");
@@ -35,5 +37,5 @@ export const useFetch = () => {
       setIsLoading(false);
     }
   };
-  return { executingRequest, data, isLoading, error };
+  return { executingRequest, data, isLoading, error, success };
 };

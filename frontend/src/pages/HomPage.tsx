@@ -10,10 +10,11 @@ const HomPage = () => {
   const [alertsForDisplay, setAlertsForDisplay] = useState(alerts);
   const { executingRequest, isLoading, error } = useFetch();
   useEffect(() => {
-    executingRequest("get", "/api/alerts").then((data) => {
-      (setAlerts(data), setAlertsForDisplay(data));
-    });
+    executingRequest("get", "/api/alerts").then((data) => setAlerts(data));
   }, []);
+  useEffect(() => {
+    setAlertsForDisplay(alerts);
+  }, [alerts]);
   if (isLoading) return <p>טוען נתונים...</p>;
   if (error) return <p>{error}</p>;
   return (

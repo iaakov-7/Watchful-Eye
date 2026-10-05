@@ -1,10 +1,10 @@
 export interface Alert {
   _id: string | number;
   displayName: string;
-  priority: "Low" | "Medium" | "High" | "Critical";
-  arena: "North" | "South" | "Center";
-  status: "Active" | "Handled";
+  description: string;
+  priority: string;
+  arena: string;
+  status: string;
   lon: number;
   lat: number;
 }
-
