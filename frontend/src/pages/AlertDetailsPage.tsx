@@ -32,11 +32,15 @@ const AlertDetailsPage = () => {
 
   return (
     <>
-      <h2>{alert?.displayName}</h2>
-      <h3>תיאור המקרה</h3>
-      <p>{alert?.description}</p>
-      <h3>פיקוד</h3>
-      <p>{alert?.arena}</p>
+      <article className="alert-details">
+        <h2>{alert?.displayName}</h2>
+        <h3>תיאור המקרה</h3>
+        <p>{alert?.description}</p>
+        <h3>פיקוד</h3>
+        <p>{alert?.arena}</p>
+        <h3>סטטוס</h3>
+        <p>{alert?.status}</p>
+      </article>
       {!isUpdateForm && (
         <div className="details-btns">
           <button onClick={handleUpdate}>עדכון אירוע</button>

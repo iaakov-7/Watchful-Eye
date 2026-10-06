@@ -9,7 +9,7 @@ const AlertsTable = ({ alerts }: { alerts: Alert[] }) => {
   return (
     <>
       <h2>טבלת התראות</h2>
-      <h3>לפרטי התראה לחץ על ההתראה בטבלה</h3>
+      <h3>לפרטי וניהול התראה לחץ על ההתראה בטבלה</h3>
       <table className="alerts-table">
         <thead>
           <tr>

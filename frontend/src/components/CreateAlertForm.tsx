@@ -32,7 +32,7 @@ const CreateAlertForm = () => {
   if (error) setMsg(error);
   return (
     <>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={(e) => handleSubmit(e)} onChange={() => setMsg("")}>
         <label>
           שם התראה
           <input

@@ -1,6 +1,8 @@
+import type { User } from "./user.type";
+
 export interface Response {
   success: boolean;
-  data?: any;
+  data?: any ;
   message?: string;
 }
 

@@ -4,13 +4,23 @@ import { useAlertsStore } from "../store/useAlertsStore";
 import { useFetch } from "../hooks/useFetch";
 import AlertsTable from "../components/AlertsTable";
 import SearchByName from "../components/SearchByName";
+import { useUserStore } from "../store/useUserStore";
+import { useNavigate } from "react-router";
 
 const HomPage = () => {
+  const navigate = useNavigate();
+  const { user } = useUserStore();
+  if (!user) {
+    navigate("/login");
+  }
   const { alerts, setAlerts } = useAlertsStore();
   const [alertsForDisplay, setAlertsForDisplay] = useState(alerts);
   const { executingRequest, isLoading, error } = useFetch();
   useEffect(() => {
-    executingRequest("get", "/api/alerts").then((data) => setAlerts(data));
+    executingRequest(
+      "get",
+      `/api/alerts${user?.role === "arena_user" && `?arena=${user.assignedArena}`}`,
+    ).then((data) => setAlerts(data));
   }, []);
   useEffect(() => {
     setAlertsForDisplay(alerts);
@@ -19,7 +29,7 @@ const HomPage = () => {
   if (error) return <p>{error}</p>;
   return (
     <>
-    <h1>אפליקציית - עין צופיה</h1>
+      <h1>אפליקציית - עין צופיה</h1>
       <SearchByName alerts={alerts} set={setAlertsForDisplay} />
       {alertsForDisplay.length > 0 ? (
         <>

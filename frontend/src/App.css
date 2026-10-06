@@ -32,6 +32,7 @@ td {
 /* header */
 
 header {
+  height: 5vh;
   display: flex;
   justify-content: space-between;
   padding: 1rem 2rem;
@@ -47,6 +48,11 @@ nav {
 
 .active-link {
   font-weight: 700;
+}
+.username-logout {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .logo {
@@ -83,4 +89,15 @@ button {
   display: flex;
   gap: 1rem;
   justify-content: center;
+}
+
+.alert-details {
+  background-color: whitesmoke;
+  border: 1px solid black;
+  border-radius: 12px;
+  padding: 1rem;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  max-width: 50vw;
 }
