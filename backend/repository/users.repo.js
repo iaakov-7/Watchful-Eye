@@ -14,9 +14,14 @@ async function findByUserName(username) {
   return user;
 }
 
+async function findById(id) {
+  const user = await collection.findOne({ _id: new ObjectId(id) });
+  return user;
+}
+
 async function deleteUser(id) {
   const result = await collection.deleteOne({ _id: new ObjectId(id) });
-  return result;
+  return result.acknowledged;
 }
 
 async function getAllUsers() {
@@ -29,4 +34,5 @@ export const usersRepo = {
   findByUserName,
   deleteUser,
   getAllUsers,
+  findById,
 };

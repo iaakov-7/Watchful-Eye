@@ -38,4 +38,27 @@ async function handleLogin(req, /** @type {import("express").Response} */ res) {
   res.json({ success: true, data: safeUser });
 }
 
-export const userCtrls = { handleRegister, handleLogin };
+async function handleGetMe(req, res) {
+  const user = req.user;
+  console.log(user);
+  res.json({ success: true, data: user });
+}
+
+async function handleDeleteUser(req, res) {
+  const { id } = req.params;
+  const user = await usersRepo.findById(id);
+  if (!user) {
+    const error = new Error(`User with id: ${id} is not found`);
+    error.statusCode = 404;
+    throw error;
+  }
+  const result = await usersRepo.deleteUser(id);
+  res.json({ success: true, data: result });
+}
+
+export const userCtrls = {
+  handleRegister,
+  handleLogin,
+  handleGetMe,
+  handleDeleteUser,
+};

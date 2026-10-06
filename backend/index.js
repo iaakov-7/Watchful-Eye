@@ -1,6 +1,7 @@
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import { router as alertsRouter } from "./routes/alerts.routes.js";
 import { router as authRouter } from "./routes/auth.routes.js";
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
@@ -11,6 +12,7 @@ app.use(
     origin: "http://localhost:5173",
   }),
 );
+app.use(cookieParser());
 app.use(express.json());
 app.use("/api/alerts", alertsRouter);
 app.use("/api/auth", authRouter);
