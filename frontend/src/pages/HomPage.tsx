@@ -24,11 +24,11 @@ const HomPage = () => {
         <>
           <AlertsTable alerts={alertsForDisplay} />
           <h2>מפת התראות</h2>
-          <AlertsMap alerts={alertsForDisplay} height={500} />
         </>
       ) : (
         <h3>אין התראות</h3>
       )}
+      <AlertsMap alerts={alertsForDisplay} height={500} />
     </>
   );
 };

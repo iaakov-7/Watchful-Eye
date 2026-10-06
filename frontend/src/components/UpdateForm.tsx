@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import type { Alert } from "../types/alerts.types";
 import { useFetch } from "../hooks/useFetch";
 import { useAlertsStore } from "../store/useAlertsStore";
@@ -6,9 +6,11 @@ import { useAlertsStore } from "../store/useAlertsStore";
 const UpdateForm = ({
   alert,
   setISupdateForm,
+  setMsg,
 }: {
   alert: Alert | any;
   setISupdateForm: (bool: boolean) => void;
+  setMsg: (msg: string) => void;
 }) => {
   const [displayName, setDisplayName] = useState<string>(alert.displayName);
   const [description, setDescription] = useState<string>(alert.description);
@@ -17,12 +19,15 @@ const UpdateForm = ({
   const [status, setStatus] = useState<string>(alert.status);
   const [lon, setLon] = useState<number>(alert.lon);
   const [lat, setLat] = useState<number>(alert.lat);
-  const [msg, setMsg] = useState<string>();
-  const { executingRequest, error, success } = useFetch();
+
+  const { executingRequest, error } = useFetch();
   const { updateAlert } = useAlertsStore();
+  useEffect(() => {
+    setMsg("");
+  }, []);
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await executingRequest("put", `/api/alerts/${alert._id}`, {
+    const data = await executingRequest("put", `/api/alerts/${alert._id}`, {
       displayName,
       description,
       priority,
@@ -31,7 +36,7 @@ const UpdateForm = ({
       lon,
       lat,
     });
-    if (success) {
+    if (data._id) {
       setMsg("העדכון הצליח");
 
       setISupdateForm(false);
@@ -49,8 +54,9 @@ const UpdateForm = ({
         alert._id,
       );
     }
+    if (error) setMsg(error);
   };
-  if (error) setMsg(error);
+
   return (
     <>
       <form onSubmit={(e) => handleSubmit(e)}>
@@ -87,7 +93,7 @@ const UpdateForm = ({
           <select value={arena} onChange={(e) => setArena(e.target.value)}>
             <option value="Center">Center</option>
             <option value="South">South</option>
-            <option value="Medium">North</option>
+            <option value="North">North</option>
           </select>
         </label>
         <label>
@@ -115,7 +121,6 @@ const UpdateForm = ({
         </label>
         <button type="submit">עדכן</button>
       </form>
-      {msg && <p>{msg}</p>}
     </>
   );
 };

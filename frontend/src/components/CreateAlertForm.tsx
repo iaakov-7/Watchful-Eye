@@ -11,7 +11,7 @@ const CreateAlertForm = () => {
   const [lon, setLon] = useState<number>();
   const [lat, setLat] = useState<number>();
   const [msg, setMsg] = useState<string>();
-  const { executingRequest, error, success } = useFetch();
+  const { executingRequest, error } = useFetch();
   const { addAlert } = useAlertsStore();
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -24,7 +24,7 @@ const CreateAlertForm = () => {
       lon,
       lat,
     });
-    if (success) {
+    if (data._id) {
       setMsg("התראה נוספה בהצלחה");
       addAlert(data);
     }
@@ -66,7 +66,7 @@ const CreateAlertForm = () => {
           <select value={arena} onChange={(e) => setArena(e.target.value)}>
             <option value="Center">Center</option>
             <option value="South">South</option>
-            <option value="Medium">North</option>
+            <option value="North">North</option>
           </select>
         </label>
         <label>
@@ -92,7 +92,7 @@ const CreateAlertForm = () => {
             onChange={(e) => setLat(Number(e.target.value))}
           />
         </label>
-        <button type="submit">עדכן</button>
+        <button type="submit">צור</button>
       </form>
       {msg && <p>{msg}</p>}
     </>
