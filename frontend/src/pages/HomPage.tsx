@@ -19,6 +19,7 @@ const HomPage = () => {
   if (error) return <p>{error}</p>;
   return (
     <>
+    <h1>אפליקציית - עין צופיה</h1>
       <SearchByName alerts={alerts} set={setAlertsForDisplay} />
       {alertsForDisplay.length > 0 ? (
         <>
