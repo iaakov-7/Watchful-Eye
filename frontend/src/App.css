@@ -1,3 +1,7 @@
+:root {
+  --primary-color: rgb(207, 230, 237);
+}
+
 /* table css */
 .alerts-table,
 .users-table {
@@ -12,7 +16,8 @@
 }
 
 .alerts-table,
-.users-table th,
+.users-table,
+th,
 td {
   border: 1px black solid;
   padding: 0.5rem;
@@ -107,4 +112,30 @@ button {
   margin-top: 2rem;
   margin-bottom: 2rem;
   max-width: 50vw;
+}
+
+.filter-and-search {
+  border: 1px solid lightgray;
+  display: flex;
+  max-height: 15vh;
+  gap: 2rem;
+  justify-content: space-between;
+  margin: 2rem;
+  padding: 0.5rem;
+  align-items: center;
+}
+
+.filter-and-search button {
+  max-height: 25px;
+}
+.filter-and-search section {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.display-all-btn {
+  border-radius: 4px;
+  background-color: var(--primary-color);
 }

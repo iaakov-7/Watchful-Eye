@@ -16,16 +16,18 @@ const SearchByName = ({
     set(filterdAlerts);
   };
   return (
-    <>
-      <h3>חיפוש לפי שם</h3>
-      <input
-        type="text"
-        value={search}
-        placeholder="bla bla"
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <button onClick={handleClick}>חפש</button>
-    </>
+    <div>
+      <p>חיפוש לפי שם</p>
+      <section>
+        <input
+          type="text"
+          value={search}
+          placeholder="bla bla"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button onClick={handleClick}>חפש</button>
+      </section>
+    </div>
   );
 };
 

@@ -6,6 +6,8 @@ import AlertsTable from "../components/AlertsTable";
 import SearchByName from "../components/SearchByName";
 import { useUserStore } from "../store/useUserStore";
 import { useNavigate } from "react-router";
+import FilterByArena from "../components/FilterByArena";
+import FilterByPriority from "../components/FilterByPriority";
 
 const HomPage = () => {
   const navigate = useNavigate();
@@ -30,7 +32,14 @@ const HomPage = () => {
   return (
     <>
       <h1>אפליקציית - עין צופיה</h1>
-      <SearchByName alerts={alerts} set={setAlertsForDisplay} />
+      <div className="filter-and-search">
+        <SearchByName alerts={alerts} set={setAlertsForDisplay} />
+        <FilterByArena alerts={alerts} set={setAlertsForDisplay} />
+        <FilterByPriority alerts={alerts} set={setAlertsForDisplay} />
+        <button className="display-all-btn" onClick={() => setAlertsForDisplay(alerts)}>
+          להצגת כל ההתראות
+        </button>
+      </div>
       {alertsForDisplay.length > 0 ? (
         <>
           <AlertsTable alerts={alertsForDisplay} />
