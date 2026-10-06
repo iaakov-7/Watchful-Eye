@@ -130,7 +130,7 @@ button {
 }
 .filter-and-search section {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   align-items: center;
   justify-content: center;
 }
