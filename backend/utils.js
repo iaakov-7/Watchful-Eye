@@ -27,8 +27,9 @@ export function generateToken(user) {
   const payload = {
     id: user._id,
     username: user.username,
+    role:user.role
   };
-  const token = JWT.sign(payload, process.env.JWT.SECRET_KEY, {
+  const token = JWT.sign(payload, process.env.JWT_SECRET_KEY, {
     expiresIn: "7d",
   });
   return token;

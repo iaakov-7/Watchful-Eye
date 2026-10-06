@@ -7,6 +7,12 @@ import {
 
 async function handleRegister(req, res) {
   const { username, password, email, role, assignedArena } = req.body;
+  const user = await usersRepo.findByUserName(username);
+  if (user) {
+    const error = new Error(`Is already exists username: ${username}`);
+    error.statusCode = 409;
+    throw error;
+  }
   const newHashedPassword = await createHasedPassword(password.trim());
   const userCreated = await usersRepo.insertUser({
     username: username.trim(),
@@ -21,7 +27,7 @@ async function handleRegister(req, res) {
 
 async function handleLogin(req, /** @type {import("express").Response} */ res) {
   const { username, password } = req.body;
-  const user = usersRepo.findByUserName(username.trim());
+  const user = await usersRepo.findByUserName(username.trim());
   await CheckIfValidPassword(password.trim(), user.hashedPassword);
   const { hashedPassword, ...safeUser } = user;
   const token = generateToken(safeUser);
