@@ -56,9 +56,26 @@ async function handleDeleteUser(req, res) {
   res.json({ success: true, data: result });
 }
 
+async function handleGetAll(req, res) {
+  const users = await usersRepo.getAllUsers();
+  res.json({ success: true, data: users });
+}
+async function handleLogout(
+  req,
+  /** @type {import("express").Response} */ res,
+) {
+  res.clearCookie("token", {
+    httpOnly: true,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+  res.json({ success: true });
+}
+
 export const userCtrls = {
   handleRegister,
   handleLogin,
   handleGetMe,
   handleDeleteUser,
+  handleGetAll,
+  handleLogout,
 };

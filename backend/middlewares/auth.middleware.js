@@ -25,7 +25,7 @@ export function verifyRoles(roles) {
         "You do not hold the role required to receive this permission",
       );
       error.statusCode = 403;
-      throw new error();
+      throw error;
     } else {
       next();
     }

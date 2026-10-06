@@ -18,3 +18,7 @@ router.delete(
   verifyRoles(["admin"]),
   userCtrls.handleDeleteUser,
 );
+
+router.get("/", verifyToken, verifyRoles(["admin"]), userCtrls.handleGetAll);
+
+router.post("/logout", verifyToken, userCtrls.handleLogout);
