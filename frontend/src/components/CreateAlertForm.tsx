@@ -1,35 +1,50 @@
 import { useState, type FormEvent } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { useAlertsStore } from "../store/useAlertsStore";
+import { useUserStore } from "../store/useUserStore";
+import { api } from "../api";
+import type { AxiosError } from "axios";
+import type { Response } from "../types/response.type";
 
 const CreateAlertForm = () => {
+  const { user } = useUserStore();
   const [displayName, setDisplayName] = useState<string>();
   const [description, setDescription] = useState<string>();
   const [priority, setPriority] = useState<string>("Low");
-  const [arena, setArena] = useState<string>("Center");
+  const [arena, setArena] = useState<string>(
+    user?.role === "arena_user" && user?.assignedArena !== "All"
+      ? `${user?.assignedArena}`
+      : "Center",
+  );
   const [status, setStatus] = useState<string>("Handled");
   const [lon, setLon] = useState<number>();
   const [lat, setLat] = useState<number>();
   const [msg, setMsg] = useState<string>();
-  const { executingRequest, error } = useFetch();
+
   const { addAlert } = useAlertsStore();
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const data = await executingRequest("post", `/api/alerts`, {
-      displayName,
-      description,
-      priority,
-      arena,
-      status,
-      lon,
-      lat,
-    });
-    if (data._id) {
-      setMsg("התראה נוספה בהצלחה");
-      addAlert(data);
+    try {
+      const res = await api.post(`/api/alerts`, {
+        displayName,
+        description,
+        priority,
+        arena,
+        status,
+        lon,
+        lat,
+      });
+      if (res.data.success) {
+        addAlert(res.data.data);
+        setMsg("התראה נוספה בהצלחה");
+      }
+    } catch (err) {
+      const error = err as AxiosError<Response>;
+      const serverMsg = error.response?.data.message || "תקלה פנימית";
+      setMsg(serverMsg);
     }
   };
-  if (error) setMsg(error);
+
   return (
     <>
       <form onSubmit={(e) => handleSubmit(e)} onChange={() => setMsg("")}>
@@ -63,11 +78,18 @@ const CreateAlertForm = () => {
         </label>
         <label>
           פיקוד
-          <select value={arena} onChange={(e) => setArena(e.target.value)}>
-            <option value="Center">Center</option>
-            <option value="South">South</option>
-            <option value="North">North</option>
-          </select>
+          {user?.role === "arena_user" && user?.assignedArena !== "All" ? (
+            <select>
+              <option value={user.assignedArena}>{user.assignedArena}</option>
+              <option>אתה יכול רק בזירה שלך</option>
+            </select>
+          ) : (
+            <select value={arena} onChange={(e) => setArena(e.target.value)}>
+              <option value="Center">Center</option>
+              <option value="South">South</option>
+              <option value="North">North</option>
+            </select>
+          )}
         </label>
         <label>
           סטטוס

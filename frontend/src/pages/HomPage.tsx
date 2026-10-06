@@ -19,7 +19,7 @@ const HomPage = () => {
   useEffect(() => {
     executingRequest(
       "get",
-      `/api/alerts${user?.role === "arena_user" && `?arena=${user.assignedArena}`}`,
+      `/api/alerts${user?.role === "arena_user" && user.assignedArena !== "All" ? `?arena=${user.assignedArena}` : `/`}`,
     ).then((data) => setAlerts(data));
   }, []);
   useEffect(() => {
@@ -37,7 +37,7 @@ const HomPage = () => {
           <h2>מפת התראות</h2>
         </>
       ) : (
-        <h3>אין התראות</h3>
+        <h3>אין התראות להצגה</h3>
       )}
       <AlertsMap alerts={alertsForDisplay} height={500} />
     </>

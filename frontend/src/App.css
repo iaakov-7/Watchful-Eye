@@ -1,11 +1,18 @@
 /* table css */
-.alerts-table {
+.alerts-table,
+.users-table {
   margin: auto;
+  margin-bottom: 2rem;
   text-align: center;
   border-collapse: collapse;
 }
+.alerts-table,
+.users-table thead {
+  background-color: whitesmoke;
+}
 
-.alerts-table th,
+.alerts-table,
+.users-table th,
 td {
   border: 1px black solid;
   padding: 0.5rem;

@@ -45,7 +45,6 @@ async function handleLogin(req, /** @type {import("express").Response} */ res) {
 
 async function handleGetMe(req, res) {
   const user = req.user;
-  console.log(user);
   res.json({ success: true, data: user });
 }
 
