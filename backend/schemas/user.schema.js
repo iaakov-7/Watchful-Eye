@@ -17,3 +17,12 @@ export const userSchema = z.object({
     "The `assignedArena` field is required and must be one of the following: North, South,Center or All",
   ),
 });
+
+export const loginSchema = z.object({
+  username: z.string(
+    "The field username is required and must be of type string.",
+  ),
+  password: z.string(
+    "The field password is required and must be of type string.",
+  ),
+});

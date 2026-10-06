@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import JWT from "jsonwebtoken";
 
 export function raisErrorIfNotFound(alert, id) {
   if (!alert) {
@@ -11,4 +12,24 @@ export function raisErrorIfNotFound(alert, id) {
 export async function createHasedPassword(password) {
   const hashedPassword = await bcrypt.hash(password, 12);
   return hashedPassword;
+}
+
+export async function CheckIfValidPassword(password, hashedPassword) {
+  const isValid = await bcrypt.compare(password, hashedPassword);
+  if (!isValid) {
+    const error = new Error("Invalid password");
+    error.statusCode = 400;
+    throw error;
+  }
+}
+
+export function generateToken(user) {
+  const payload = {
+    id: user._id,
+    username: user.username,
+  };
+  const token = JWT.sign(payload, process.env.JWT.SECRET_KEY, {
+    expiresIn: "7d",
+  });
+  return token;
 }

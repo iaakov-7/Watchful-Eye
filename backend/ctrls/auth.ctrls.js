@@ -1,17 +1,35 @@
 import { usersRepo } from "../repository/users.repo.js";
-import { createHasedPassword } from "../utils.js";
+import {
+  CheckIfValidPassword,
+  createHasedPassword,
+  generateToken,
+} from "../utils.js";
 
 async function handleRegister(req, res) {
   const { username, password, email, role, assignedArena } = req.body;
-  const hashedPassword = await createHasedPassword(password);
+  const newHashedPassword = await createHasedPassword(password.trim());
   const userCreated = await usersRepo.insertUser({
-    username,
-    hashedPassword,
+    username: username.trim(),
+    hashedPassword: newHashedPassword,
     email,
     role,
     assignedArena,
   });
-  res.status(201).json({ success: true, data: userCreated });
+  const { hashedPassword, ...safeUser } = userCreated;
+  res.status(201).json({ success: true, data: safeUser });
 }
 
-export const userCtrls = { handleRegister };
+async function handleLogin(req, /** @type {import("express").Response} */ res) {
+  const { username, password } = req.body;
+  const user = usersRepo.findByUserName(username.trim());
+  await CheckIfValidPassword(password.trim(), user.hashedPassword);
+  const { hashedPassword, ...safeUser } = user;
+  const token = generateToken(safeUser);
+  res.cookie("token", token, {
+    httpOnly: true,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+  res.json({ success: true, data: safeUser });
+}
+
+export const userCtrls = { handleRegister, handleLogin };
