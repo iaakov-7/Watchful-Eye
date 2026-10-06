@@ -20,3 +20,7 @@ I chose MongoDB because we don't need strictness or direct links between tables 
 ## Invalid input rules
 
 In the event of invalid input or a missing field, a response is returned from the server = status 400 and json in formt {success:false,message:"error message"}
+
+## Frontend state management
+
+I managed the state for notifications and users using Zustand so that I could access it from anywhere in the application.
