@@ -31,7 +31,7 @@ export const useFetch = () => {
     } catch (err) {
       const error = err as AxiosError<Response>;
       const serverMsg = error.response?.data.message || "תקלה פנימית";
-      console.log(serverMsg);
+
       setError(serverMsg);
     } finally {
       setIsLoading(false);

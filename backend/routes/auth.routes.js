@@ -6,7 +6,13 @@ import { verifyRoles, verifyToken } from "../middlewares/auth.middleware.js";
 
 export const router = express.Router();
 
-router.post("/register", validBody(userSchema), userCtrls.handleRegister);
+router.post(
+  "/register",
+  validBody(userSchema),
+  verifyToken,
+  verifyRoles(["admin"]),
+  userCtrls.handleRegister,
+);
 
 router.post("/login", validBody(loginSchema), userCtrls.handleLogin);
 

@@ -28,6 +28,11 @@ async function handleRegister(req, res) {
 async function handleLogin(req, /** @type {import("express").Response} */ res) {
   const { username, password } = req.body;
   const user = await usersRepo.findByUserName(username.trim());
+  if (!user) {
+    const error = new Error(`User: ${username} is not found`);
+    error.statusCode = 404;
+    throw error;
+  }
   await CheckIfValidPassword(password.trim(), user.hashedPassword);
   const { hashedPassword, ...safeUser } = user;
   const token = generateToken(safeUser);
